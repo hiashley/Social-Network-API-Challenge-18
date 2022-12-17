@@ -22,11 +22,11 @@ module.exports = {
 
   createThought(req, res) {
     Thought.create(req.body)
-      .then((thought) => res.json(thought))
-      .catch((err) => {
-        console.log(err);
-        return res.status(500).json(err);
-      });
+    .then((thought) => res.json(thought))
+    .catch((err) => {
+      console.log(err);
+      return res.status(500).json(err);
+    });
   },
 
   updateThought(req, res) {
@@ -56,7 +56,7 @@ module.exports = {
   createReaction(req, res) {
     Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
-      { $addToSet: req.body },
+      { $addToSet: { reactions: req.body } },
       { runValidators: true, new: true }
     )
       .then((reaction) =>
